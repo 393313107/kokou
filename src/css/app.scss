@@ -1,0 +1,42 @@
+// 这里定义公共的css
+
+// 字体
+.font-twelve{
+	font-size: 12px;
+}
+.font-fourteen{
+	font-size: 14px;
+}
+.font-sixteen{
+	font-size: 16px;
+}
+.font-eighteen{
+	font-size: 18px;
+}
+.font-twenty{
+	font-size: 20px;
+}
+.color-ababab{
+	color: #ababab;
+}
+.color-000{
+	color: #000;
+}
+.text-center{
+	text-align: center;
+}
+.row{
+	display: flex;
+}
+.justify-between{
+	justify-content: space-between;
+}
+.items-center{
+	align-items: center;
+}
+.text-none{
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	user-select:none;
+}
