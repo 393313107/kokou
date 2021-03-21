@@ -7,6 +7,7 @@ export default {
     home: `${host}/api/v1/page/home`, //获取首页信息
     sidebar: `${host}/api/v1/page/sidebar`, //获取公共侧边栏
     get_goods: `${host}/api/v1/page/get_goods`, //查看单个产品信息
+    config: `${host}/api/v1/config`, //查看单个产品信息
 
     shop_add: `${host}/api/v1/shop/add`, //添加到购物车
     shop_list: `${host}/api/v1/shop/list`, //购物车列表

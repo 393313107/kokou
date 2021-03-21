@@ -32,7 +32,7 @@ const routes = [
     component: Home,
     // component: (resolve) => require(["../views/Home.vue"], resolve),
     meta: {
-      title: "首页 - [ KOKOU ]",
+      title: "首页 - KOKOU",
       keepAlive: true, //此组件需要被缓存
       isBack:false, //用于判断上一个页面是哪个
     },
@@ -45,7 +45,7 @@ const routes = [
     // component: (resolve) =>
     //   require(["../views/pages/shoppingBag.vue"], resolve),
     meta: {
-      title: "购物车 - [ KOKOU ]",
+      title: "购物车 - KOKOU",
       keepAlive: true, //此组件需要被缓存
       isBack:false, //用于判断上一个页面是哪个
     },
@@ -58,7 +58,7 @@ const routes = [
     // component: (resolve) =>
     //   require(["../views/pages/advanceOrder.vue"], resolve),
     meta: {
-      title: "预订单 - [ KOKOU ]",
+      title: "预订单 - KOKOU",
       keepAlive: true, //此组件需要被缓存
       isBack:false, //用于判断上一个页面是哪个
     },
@@ -70,7 +70,7 @@ const routes = [
     component: productList,
     // component: (resolve) => require(["../views/ProductList.vue"], resolve),
     meta: {
-      title: "商品列表 - [ KOKOU ]",
+      title: "商品列表 - KOKOU",
       keepAlive: true, //此组件需要被缓存
       isBack:false, //用于判断上一个页面是哪个
     },
@@ -82,7 +82,7 @@ const routes = [
     component: shopdetails,
     // component: (resolve) => require(["../views/shopdetails.vue"], resolve),
     meta: {
-      title: "商品详情 - [ KOKOU ]",
+      title: "商品详情 KOKOU",
       keepAlive: false, //此组件不需要被缓存
 
     },
@@ -94,7 +94,7 @@ const routes = [
     component: degree,
     // component: (resolve) => require(["../views/Degree.vue"], resolve),
     meta: {
-      title: "我的度数 - [ KOKOU ]",
+      title: "我的度数 - KOKOU",
       keepAlive: false, //此组件需要被缓存
     },
   },
@@ -105,7 +105,7 @@ const routes = [
     component: mine,
     // component: (resolve) => require(["../views/mine.vue"], resolve),
     meta: {
-      title: "我的账户 - [ KOKOU ]",
+      title: "我的账户 - KOKOU",
       keepAlive: true, //此组件需要被缓存
       isBack:false, //用于判断上一个页面是哪个
     },
@@ -117,7 +117,7 @@ const routes = [
     component: coupon,
     // component: (resolve) => require(["../views/coupon.vue"], resolve),
     meta: {
-      title: "代金券 - [ KOKOU ]",
+      title: "代金券 - KOKOU",
       keepAlive: false, //此组件需要被缓存
     },
   },
@@ -128,7 +128,7 @@ const routes = [
     component: mobileLogin,
     // component: (resolve) => require(["../views/MobileLogin.vue"], resolve),
     meta: {
-      title: "手机验证码 - [ KOKOU ]",
+      title: "手机验证码 - KOKOU",
       keepAlive: false, //此组件需要被缓存
     },
   },
@@ -139,7 +139,7 @@ const routes = [
     component: myorder,
     // component: (resolve) => require(["../views/myOrder.vue"], resolve),
     meta: {
-      title: "我的订单 - [ KOKOU ]",
+      title: "我的订单 - KOKOU",
       keepAlive: true, //此组件需要被缓存
       isBack:false, //用于判断上一个页面是哪个
     },
@@ -151,7 +151,7 @@ const routes = [
     component: OrderDetails,
     // component: (resolve) => require(["../views/OrderDetails.vue"], resolve),
     meta: {
-      title: "订单详情 - [ KOKOU ]",
+      title: "订单详情 - KOKOU",
       keepAlive: true, //此组件需要被缓存
       isBack:false, //用于判断上一个页面是哪个
     },
@@ -163,7 +163,7 @@ const routes = [
     component: address,
     // component: (resolve) => require(["../views/address.vue"], resolve),
     meta: {
-      title: "收货地址 - [ KOKOU ]",
+      title: "收货地址 - KOKOU",
       keepAlive: false, //此组件需要被缓存
     },
   },
@@ -174,7 +174,7 @@ const routes = [
     component: good,
     // component: (resolve) => require(["../views/good.vue"], resolve),
     meta: {
-      title: "支付提示 - [ KOKOU ]",
+      title: "支付提示 - KOKOU",
       keepAlive: false, //此组件需要被缓存
     },
   },
@@ -184,7 +184,7 @@ const routes = [
     component: goods,
     // component: (resolve) => require(["../views/good.vue"], resolve),
     meta: {
-      title: "支付提示 - [ KOKOU ]",
+      title: "支付提示 - KOKOU",
       keepAlive: false, //此组件需要被缓存
     },
   },
@@ -195,7 +195,7 @@ const routes = [
     component: shopPay,
     // component: (resolve) => require(["../views/pages/shopPay.vue"], resolve),
     meta: {
-      title: "支付方式 - [ KOKOU ]",
+      title: "支付方式 - KOKOU",
       keepAlive: false, //此组件需要被缓存
     },
   },

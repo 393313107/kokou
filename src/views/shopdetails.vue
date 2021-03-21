@@ -6,7 +6,7 @@
     <!--    </div>-->
     <!-- 头部 -->
     <heads ref="badgeChange"></heads>
-    <div style="height: 51px"></div>
+    <div style="height: 53px;width:100%;background:#fff"></div>
 
     <div class="bg" style="background-color: #ffffff">
       <el-carousel
@@ -93,12 +93,14 @@
           customClass="loading"
           :disabled="disabled"
           @click="goShoppingbag"
-          :class="['yesBt',loading?'load':'']"
+          :class="['yesBt', loading ? 'load' : '']"
           v-show="bt_all"
         >
           <span v-show="!loading" class="bt-price">
-            <span style="font-weight: 300;font-size:19.2px">￥ </span>
-            <strong style="font-size:19.2px;font-weight:normal">{{ $route.query.price }}</strong>
+            <span style="font-weight: 300; font-size: 19.2px">￥ </span>
+            <strong style="font-size: 19.2px; font-weight: normal">{{
+              $route.query.price
+            }}</strong>
             <!-- <span style="font-size: 17px;">499</span> -->
           </span>
           <span v-show="!loading" style="color: #555; font-size: 21px">
@@ -113,8 +115,10 @@
         </el-button>
         <el-button disabled v-show="bt_over" class="noBt">
           <span class="bt-price" style="font-size: 18px; font-family: Candara">
-            <span style="font-size:19.2px">￥ </span>
-            <span style="font-family: Arial;font-size:19.2px">{{ $route.query.price }}</span>
+            <span style="font-size: 19.2px">￥ </span>
+            <span style="font-family: Arial; font-size: 19.2px">{{
+              $route.query.price
+            }}</span>
           </span>
           <span style="color: #3f3f3f; font-size: 150%; font-family: Candara">
             |
@@ -163,15 +167,16 @@ export default {
       color: "",
       i: "1",
       Arindex: 0,
+      img:require('../assets/logo.png')
     };
   },
-  computed:{
-    disabled(){
-      return this.loading
-    }
+  computed: {
+    disabled() {
+      return this.loading;
+    },
   },
   created() {
-    document.title = this.$route.query.title + " - [ KOKOU ]";
+    document.title = this.$route.query.title + ' ' + " KOKOU";
   },
 
   mounted() {
@@ -180,7 +185,7 @@ export default {
     this.img_list_local = JSON.parse(localStorage.getItem("img_list"));
     this.color_list = JSON.parse(localStorage.getItem("color_list"));
     this.code_list = JSON.parse(localStorage.getItem("code_list"));
-
+  
     this.inventoryList.forEach((item) => {
       if (item == 0) {
         this.bt_over = true;
@@ -193,18 +198,48 @@ export default {
 
     // 监听（绑定）滚轮 滚动事件
     this.handClick();
+    this.share();
   },
 
   methods: {
+    share() {
+      var _this = this
+      this.$get(this.api.config, {
+        url: window.location.href,
+      }).then((res) => {
+        if (res.code !== 0) return;
+        wx.config({
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: "wx1ca48ea15878c6c7", // 必填，公众号的唯一标识
+          timestamp: res.data.timestamp, // 必填，生成签名的时间戳
+          nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
+          signature: res.data.sign, // 必填，签名
+          jsApiList: ["onMenuShareAppMessage"], // 必填，需要使用的JS接口列表
+        });
+        wx.ready(function () {
+          wx.onMenuShareAppMessage({
+            title: "KOKOU 眼镜", // 分享标题
+            desc: '型号：'+_this.$route.query.title, // 分享描述
+            imgUrl: "https://ftp.bmp.ovh/imgs/2021/03/f34a8ad46dc307f9.jpg", // 分享图标
+            success: function () {
+              // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+            },
+          });
+        });
+      });
+    },
     handClick() {
       let oldTop = 0; //旧数据，初始为0
       // 将自定义方法绑定到窗口滚动条事件
       window.onscroll = () => {
         let top = document.scrollingElement.scrollTop; //触发滚动条，记录数值
-        
-        if(top > 0){
+
+        if (top > 0) {
           this.$refs.badgeChange.fix = 1;
-        }else{
+        } else {
           this.$refs.badgeChange.fix = 0;
         }
 
@@ -388,7 +423,7 @@ export default {
   // height: 48px;
   font-size: 0 !important;
 }
-.yesBt.load{
+.yesBt.load {
   box-shadow: 0 0 0 4px #cccccc !important;
 }
 .yesBt {

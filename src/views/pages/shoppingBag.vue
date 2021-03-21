@@ -30,7 +30,7 @@
             </div>
             <div class="row frame_content_row">
               <div class="row justify-between">
-                <div class="color-000" style="color: #666666">
+                <div class="color-000" style="font-size:14px;color: #666666;font-family:'Avenir Next', Avenir, 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif">
                   {{ item.title }}
                 </div>
                 <div @click="handleDelete(item.id)">
@@ -38,7 +38,7 @@
                 </div>
               </div>
               <div class="row cen">
-                <div class="money_price_text">￥{{ parseInt(item.price) }}</div>
+                <div style="font-size:14px" class="money_price_text">￥{{ parseInt(item.price) }}</div>
                 <div :style="{ background: item.color }" class="color"></div>
               </div>
               <div v-if="item.need_lens == '0'">
@@ -71,17 +71,17 @@
             </div>
             <div class="row frame_content_row">
               <div class="row justify-between">
-                <div class="color-000" style="color: #666666">
+                <div class="color-000" style="color: #666666;font-size:14px">
                   {{ item.lens_title }}
                 </div>
                 <div @click="handleDelLens(item)">
                   <i class="el-icon-close"></i>
                 </div>
               </div>
-              <div class="row">
+              <div style="font-size:12.6px" class="row">
                 <div>{{ item.desc }}</div>
               </div>
-              <div class="row">
+              <div style="font-size:14px" class="row">
                 <div>￥{{ parseInt(item.lens_price) }}</div>
                 <div class="row justify-between items-center">
                   <div class="color-item"></div>
@@ -109,10 +109,10 @@
                   <div style="color: rgba(0, 0, 0, 0.65); font-size: 14px">
                     {{ scope.row.title }}
                   </div>
-                  <div style="color: #ababab; font-size: 14px">
+                  <div style="color: #ababab; font-size: 12.6px">
                     {{ scope.row.desc }}
                   </div>
-                  <div style="color: rgba(0, 0, 0, 0.65); font-size: 14px">
+                  <div style="color: rgba(0, 0, 0, 0.65); font-size: 14px;margin-top:5px">
                     ￥{{ scope.row.price }}
                   </div>
                 </div>
@@ -552,6 +552,7 @@ export default {
 .money_price_text {
   color: #666666;
   font-size: 91%;
+  font-family: 'Avenir Next', Avenir, 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 .el-notification {
   width: 50% !important;
