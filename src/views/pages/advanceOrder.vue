@@ -444,6 +444,8 @@ export default {
     next();
   },
   created() {
+    console.log('created')
+    console.log(this.dataList,'created')
     this.isFirstEnter = true;
     // 只有第一次进入或者刷新页面后才会执行此钩子函数
     // 使用keep-alive后（2+次）进入不会再执行此钩子函数
@@ -453,15 +455,19 @@ export default {
     this.getShopList();
   },
   activated() {
+    console.log(this.dataList,'actived 1')
     this.handClick();
     this.$nextTick(() => {
       this.$refs.badgeChange.getCount();
     });
     if (!this.$route.meta.isBack || this.isFirstEnter) {
+      console.log(this.dataList,'actived 2')
       // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
       // 如果isFirstEnter是true，表明是第一次进入此页面或用户刷新了页面，需获取新数据
       this.dataList = []; // 把数据清空，可以稍微避免让用户看到之前缓存的数据
       this.lenslist = []; // 把数据清空，可以稍微避免让用户看到之前缓存的数据
+      this.shopData = []
+      console.log(this.dataList,'actived 3')
       this.getShopList();
       this.getAddDefault();
     }
@@ -599,6 +605,9 @@ export default {
     },
     // 查购物车
     getShopList() {
+      const load = this.$loading({
+        background: "rgba(255, 255, 255, 1)",
+      });
       this.$get(this.api.shop_list, {})
         .then((res) => {
           this.$nextTick(() => {
@@ -613,6 +622,7 @@ export default {
             this.heji += parseInt(item.price) + parseInt(item.lens_price);
             this.$store.dispatch("setHeJi", this.heji);
           });
+          load.close();
         })
         .catch((err) => {
           console.log(err);

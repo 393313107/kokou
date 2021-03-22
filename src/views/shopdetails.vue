@@ -220,7 +220,7 @@ export default {
           wx.onMenuShareAppMessage({
             title: "KOKOU 眼镜", // 分享标题
             desc: '型号：'+_this.$route.query.title, // 分享描述
-            imgUrl: "https://ftp.bmp.ovh/imgs/2021/03/f34a8ad46dc307f9.jpg", // 分享图标
+            imgUrl: "http://image.kokou.cn//20210322/PUL9EZ3HK.jpg", // 分享图标
             success: function () {
               // 用户确认分享后执行的回调函数
             },
