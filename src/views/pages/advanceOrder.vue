@@ -449,6 +449,7 @@ export default {
     this.isFirstEnter = true;
     // 只有第一次进入或者刷新页面后才会执行此钩子函数
     // 使用keep-alive后（2+次）进入不会再执行此钩子函数
+    this.setShoppingBag()
   },
   mounted() {
     this.getAddDefault();
@@ -468,7 +469,8 @@ export default {
       this.lenslist = []; // 把数据清空，可以稍微避免让用户看到之前缓存的数据
       this.shopData = []
       console.log(this.dataList,'actived 3')
-      this.getShopList();
+      // this.getShopList();
+      this.setShoppingBag()
       this.getAddDefault();
     }
     // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
@@ -478,6 +480,12 @@ export default {
     this.loading = false;
   },
   methods: {
+
+    setShoppingBag(){
+      let msg = this.$store.getters.setShoppingBag
+      this.shopData = msg
+      this.heji = this.$store.getters.getHeJi
+    },
     handleCloseTag() {
       var box = document.getElementById("box");
       box.remove();

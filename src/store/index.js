@@ -12,6 +12,7 @@ export default new Vuex.Store({
     openid: "",
     wxPay: "", //支付宝链接
     heji: "", //合计
+    setShoppingBag:[] // 购物车数据
   },
   //事件(同步操作)--存数据
   mutations: {
@@ -33,6 +34,9 @@ export default new Vuex.Store({
     setWxPay(state, data) {
       state.wxPay = data;
     },
+    setShoppingBag(state,data) {
+      state.setShoppingBag = data;
+    }
   },
   //事件(异步操作)--写请求
   actions: {
@@ -53,6 +57,9 @@ export default new Vuex.Store({
     },
     setWxPay({ commit }, data) {
       commit("setWxPay", data);
+    },
+    setShoppingBag({ commit }, data) {
+      commit("setShoppingBag", data);
     },
    
   },
@@ -76,6 +83,9 @@ export default new Vuex.Store({
     getWxPay(state) {
       return state.wxPay;
     },
+    setShoppingBag(state) {
+      return state.setShoppingBag;
+    }
     
   },
   modules: {},

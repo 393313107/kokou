@@ -3,11 +3,7 @@
   <div
     v-loading="pageLoading"
     element-loading-background="transparent"
-    style="
-      width: 100%;
-      height: 100%;
-      background-color: #f8f8f8;
-    "
+    style="width: 100%; height: 100%; background-color: #f8f8f8"
   >
     <!--    <div style="width: 100%; height: 100%">-->
     <!--      <el-backtop :bottom="100"></el-backtop>-->
@@ -30,7 +26,15 @@
             </div>
             <div class="row frame_content_row">
               <div class="row justify-between">
-                <div class="color-000" style="font-size:14px;color: #666666;font-family:'Avenir Next', Avenir, 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif">
+                <div
+                  class="color-000"
+                  style="
+                    font-size: 14px;
+                    color: #666666;
+                    font-family: 'Avenir Next', Avenir, 'Segoe UI', Roboto,
+                      -apple-system, BlinkMacSystemFont, sans-serif;
+                  "
+                >
                   {{ item.title }}
                 </div>
                 <div @click="handleDelete(item.id)">
@@ -38,7 +42,9 @@
                 </div>
               </div>
               <div class="row cen">
-                <div style="font-size:14px" class="money_price_text">￥{{ parseInt(item.price) }}</div>
+                <div style="font-size: 14px" class="money_price_text">
+                  ￥{{ parseInt(item.price) }}
+                </div>
                 <div :style="{ background: item.color }" class="color"></div>
               </div>
               <div v-if="item.need_lens == '0'">
@@ -71,17 +77,17 @@
             </div>
             <div class="row frame_content_row">
               <div class="row justify-between">
-                <div class="color-000" style="color: #666666;font-size:14px">
+                <div class="color-000" style="color: #666666; font-size: 14px">
                   {{ item.lens_title }}
                 </div>
                 <div @click="handleDelLens(item)">
                   <i class="el-icon-close"></i>
                 </div>
               </div>
-              <div style="font-size:12.6px" class="row">
+              <div style="font-size: 12.6px" class="row">
                 <div>{{ item.desc }}</div>
               </div>
-              <div style="font-size:14px" class="row">
+              <div style="font-size: 14px" class="row">
                 <div>￥{{ parseInt(item.lens_price) }}</div>
                 <div class="row justify-between items-center">
                   <div class="color-item"></div>
@@ -112,7 +118,13 @@
                   <div style="color: #ababab; font-size: 12.6px">
                     {{ scope.row.desc }}
                   </div>
-                  <div style="color: rgba(0, 0, 0, 0.65); font-size: 14px;margin-top:5px">
+                  <div
+                    style="
+                      color: rgba(0, 0, 0, 0.65);
+                      font-size: 14px;
+                      margin-top: 5px;
+                    "
+                  >
                     ￥{{ scope.row.price }}
                   </div>
                 </div>
@@ -147,7 +159,19 @@
             "
           >
             <p style="font-size: 90%; color: #ababab">合计金额</p>
-            <p style="color: #565656"><em style="font-style: normal;color: #565656;font-size:90%;margin-right:3px">￥</em><strong style="font-weight: normal;font-size:108%">{{ total }}</strong></p>
+            <p style="color: #565656">
+              <em
+                style="
+                  font-style: normal;
+                  color: #565656;
+                  font-size: 90%;
+                  margin-right: 3px;
+                "
+                >￥</em
+              ><strong style="font-weight: normal; font-size: 108%">{{
+                total
+              }}</strong>
+            </p>
           </div>
           <el-button
             element-loading-background="rgb(55, 55, 55)"
@@ -209,7 +233,7 @@ export default {
   mounted() {
     // this.demomsg()
     this.getShopList();
-    this.share()
+    this.share();
   },
   activated() {
     this.handClick();
@@ -233,7 +257,7 @@ export default {
   },
   methods: {
     share() {
-      var _this = this
+      var _this = this;
       this.$get(this.api.config, {
         url: window.location.href,
       }).then((res) => {
@@ -249,7 +273,7 @@ export default {
         wx.ready(function () {
           wx.onMenuShareAppMessage({
             title: "KOKOU 眼镜", // 分享标题
-            desc: '购物车', // 分享描述
+            desc: "购物车", // 分享描述
             imgUrl: "http://image.kokou.cn//20210322/PUL9EZ3HK.jpg", // 分享图标
             success: function () {
               // 用户确认分享后执行的回调函数
@@ -262,14 +286,14 @@ export default {
       });
     },
     handClick() {
-      this.$refs.badgeChange.fix = 1
+      this.$refs.badgeChange.fix = 1;
       let oldTop = 0; //旧数据，初始为0
       // 将自定义方法绑定到窗口滚动条事件
       window.onscroll = () => {
         let top = document.scrollingElement.scrollTop; //触发滚动条，记录数值
-        if(top > 0){
+        if (top > 0) {
           this.$refs.badgeChange.fix = 1;
-        }else{
+        } else {
           this.$refs.badgeChange.fix = 0;
         }
 
@@ -386,7 +410,7 @@ export default {
           desc: null,
           lens_price: null,
           lens_id: null,
-        }
+        },
       ];
       this.$nextTick(() => {
         this.$refs.badgeChange.getCount();
@@ -467,6 +491,8 @@ export default {
             }
             this.total += parseInt(item.price) + parseInt(item.lens_price);
           });
+          this.$store.dispatch("setHeJi", this.total);
+          this.$store.dispatch("setShoppingBag", this.dataList);
           load.close();
         })
         .catch((err) => {
@@ -582,7 +608,8 @@ export default {
 .money_price_text {
   color: #666666;
   font-size: 91%;
-  font-family: 'Avenir Next', Avenir, 'Segoe UI', Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Avenir Next", Avenir, "Segoe UI", Roboto, -apple-system,
+    BlinkMacSystemFont, sans-serif;
 }
 .el-notification {
   width: 50% !important;
@@ -742,8 +769,8 @@ export default {
   border-radius: 50% !important;
   // box-shadow: 0 0 0 3px #8c8c8c !important;
   margin: 0 10px 0 15px !important;
-  padding:7px;
-  box-shadow:none
+  padding: 7px;
+  box-shadow: none;
 }
 .color-item {
   background: rgb(255, 255, 255);
