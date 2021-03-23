@@ -1,9 +1,9 @@
 <!-- 预订单页-下单页 -->
 <template>
   <div style="background-color: rgb(246, 246, 246)">
-<!--    <div style="width: 100%; height: 100%">-->
-<!--      <el-backtop :bottom="20"></el-backtop>-->
-<!--    </div>-->
+    <!--    <div style="width: 100%; height: 100%">-->
+    <!--      <el-backtop :bottom="20"></el-backtop>-->
+    <!--    </div>-->
     <!-- 头部 -->
     <heads ref="badgeChange"></heads>
     <div style="height: 58px"></div>
@@ -232,11 +232,11 @@
         <el-button
           element-loading-background="rgb(55, 55, 55)"
           v-loading="bt_loading"
-          class="shopping_content_but"
-          @click="goProductlist">
-          <span v-show="!bt_loading">去支付</span>
-        </el-button
+          @click="goProductlist"
+          :class="['shopping_content_but', bt_loading ? 'load' : '']"
         >
+          <span v-show="!bt_loading">去支付</span>
+        </el-button>
       </div>
     </div>
 
@@ -340,16 +340,20 @@
           ref="ruleForm"
           class="demo-ruleForm"
         >
-          <el-form-item style="margin-bottom: 10px;" label="收货人" prop="name">
+          <el-form-item style="margin-bottom: 10px" label="收货人" prop="name">
             <el-input style="width: 100%" v-model="ruleForm.name"></el-input>
           </el-form-item>
-          <el-form-item style="margin-bottom: 10px;" label="手机号码" prop="mobile">
+          <el-form-item
+            style="margin-bottom: 10px"
+            label="手机号码"
+            prop="mobile"
+          >
             <el-input style="width: 100%" v-model="ruleForm.mobile"></el-input>
           </el-form-item>
           <el-form-item label="所在地区" prop="cityInfo" class="city">
             <div style="height: 80px"></div>
             <city-select
-              style="width: 100%;"
+              style="width: 100%"
               v-model="ruleForm.cityInfo"
               class="cityInfo"
               @input="inputSe"
@@ -444,34 +448,41 @@ export default {
     next();
   },
   created() {
-    console.log('created')
-    console.log(this.dataList,'created')
+    console.log("created");
+    console.log(this.dataList, "created");
     this.isFirstEnter = true;
     // 只有第一次进入或者刷新页面后才会执行此钩子函数
     // 使用keep-alive后（2+次）进入不会再执行此钩子函数
-    this.setShoppingBag()
+    this.setShoppingBag();
+    // this.getStoreAddDefault()
+    this.getStoreAddDefault();
+    console.log(this.dataList, "created2");
   },
   mounted() {
-    this.getAddDefault();
-    this.getShopList();
+    // this.getAddDefault();
+    // this.getShopList();
+    // this.setShoppingBag();
+    // this.getStoreAddDefault()
+    // this.getStoreAddDefault();
   },
   activated() {
-    console.log(this.dataList,'actived 1')
+    console.log(this.dataList, "actived 1");
     this.handClick();
     this.$nextTick(() => {
       this.$refs.badgeChange.getCount();
     });
     if (!this.$route.meta.isBack || this.isFirstEnter) {
-      console.log(this.dataList,'actived 2')
+      console.log(this.dataList, "actived 2");
       // 如果isBack是false，表明需要获取新数据，否则就不再请求，直接使用缓存的数据
       // 如果isFirstEnter是true，表明是第一次进入此页面或用户刷新了页面，需获取新数据
       this.dataList = []; // 把数据清空，可以稍微避免让用户看到之前缓存的数据
       this.lenslist = []; // 把数据清空，可以稍微避免让用户看到之前缓存的数据
-      this.shopData = []
-      console.log(this.dataList,'actived 3')
+      this.shopData = [];
+      console.log(this.dataList, "actived 3");
       // this.getShopList();
-      this.setShoppingBag()
-      this.getAddDefault();
+      this.setShoppingBag();
+      // this.getAddDefault();
+      this.getStoreAddDefault();
     }
     // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
     this.$route.meta.isBack = false;
@@ -480,11 +491,14 @@ export default {
     this.loading = false;
   },
   methods: {
-
-    setShoppingBag(){
-      let msg = this.$store.getters.setShoppingBag
-      this.shopData = msg
-      this.heji = this.$store.getters.getHeJi
+    setShoppingBag() {
+      let msg = this.$store.getters.setShoppingBag;
+      this.shopData = msg;
+      this.heji = this.$store.getters.getHeJi;
+      this.$nextTick(() => {
+        this.$refs.badgeChange.getCount();
+      });
+      if (!msg) this.getShopList();
     },
     handleCloseTag() {
       var box = document.getElementById("box");
@@ -495,9 +509,9 @@ export default {
       // 将自定义方法绑定到窗口滚动条事件
       window.onscroll = () => {
         let top = document.scrollingElement.scrollTop; //触发滚动条，记录数值
-        if(top > 0){
+        if (top > 0) {
           this.$refs.badgeChange.fix = 1;
-        }else{
+        } else {
           this.$refs.badgeChange.fix = 0;
         }
         //旧数据大于当前位置，表示滚动条top向上滚动
@@ -515,6 +529,11 @@ export default {
         }
         oldTop = top; //更新旧的位置
       };
+    },
+    getStoreAddDefault() {
+      let addDefault = this.$store.getters.getAddDefault;
+      this.dataList = addDefault;
+      if (!addDefault) this.getAddDefault();
     },
     // 获取默认地址
     getAddDefault() {
@@ -630,6 +649,7 @@ export default {
             this.heji += parseInt(item.price) + parseInt(item.lens_price);
             this.$store.dispatch("setHeJi", this.heji);
           });
+          console.log(this.shopData,'调接口了')
           load.close();
         })
         .catch((err) => {
@@ -670,7 +690,7 @@ export default {
             this.bt_loading = false;
             this.handelAddrlist();
           }
-        }, 500);
+        }, 200);
       }
     },
     //删除商品
@@ -737,7 +757,7 @@ export default {
   color: rgb(55, 55, 55) !important;
   border: 1px solid rgb(55, 55, 55) !important;
   padding: 1px 50px;
-  box-shadow: 0 0 0 4px #CCCCCC !important;
+  box-shadow: 0 0 0 4px #cccccc !important;
   // height: 48px;
   font-size: 0 !important;
 }
@@ -838,11 +858,14 @@ export default {
 }
 .shopping_content_but {
   font-family: "Helvetica Neue", Helvetica, "PingFang SC", "Hiragino Sans GB",
-  "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
+    "Microsoft YaHei", "微软雅黑", Arial, sans-serif;
   width: 90vw;
   height: 48px;
   background-color: #000 !important;
   color: #fff !important;
+}
+.shopping_content_but.load {
+  box-shadow: 0 0 0 4px #cccccc !important;
 }
 .color {
   display: block !important;
@@ -851,9 +874,8 @@ export default {
   border-radius: 50% !important;
   // box-shadow: 0 0 0 3px #8c8c8c !important;
   margin: 3px 10px 0 15px !important;
-  padding:7px;
-  box-shadow:none
-  
+  padding: 7px;
+  box-shadow: none;
 }
 .color-item {
   background: rgb(255, 255, 255);

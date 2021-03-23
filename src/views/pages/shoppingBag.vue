@@ -229,10 +229,11 @@ export default {
     this.isFirstEnter = true;
     // 只有第一次进入或者刷新页面后才会执行此钩子函数
     // 使用keep-alive后（2+次）进入不会再执行此钩子函数
+    this.getStpreShopList();
   },
   mounted() {
     // this.demomsg()
-    this.getShopList();
+    // this.getShopList();
     this.share();
   },
   activated() {
@@ -246,7 +247,9 @@ export default {
       // 如果isFirstEnter是true，表明是第一次进入此页面或用户刷新了页面，需获取新数据
       this.dataList = []; // 把数据清空，可以稍微避免让用户看到之前缓存的数据
       this.lenslist = []; // 把数据清空，可以稍微避免让用户看到之前缓存的数据
-      this.getShopList();
+      // this.getShopList();
+      this.getStpreShopList();
+      console.log(this.dataList, " this.dataList2");
       // this.demomsg()
     }
     // 恢复成默认的false，避免isBack一直是true，导致下次无法获取数据
@@ -453,6 +456,23 @@ export default {
         this.total += parseInt(item.price) + parseInt(item.lens_price);
       });
     },
+    getStpreShopList() {
+      let msg = this.$store.getters.setShoppingBag;
+      this.dataList = msg;
+      this.total = this.$store.getters.getHeJi;
+      if (this.dataList.length === 0) {
+        this.good_null = true;
+        this.good_list = false;
+      } else {
+        this.good_list = true;
+        this.good_null = false;
+      }
+
+      this.$nextTick(() => {
+        this.$refs.badgeChange.getCount();
+      });
+      if (!msg) this.getShopList();
+    },
     // 获取列表
     getShopList() {
       const load = this.$loading({
@@ -493,6 +513,7 @@ export default {
           });
           this.$store.dispatch("setHeJi", this.total);
           this.$store.dispatch("setShoppingBag", this.dataList);
+          console.log(this.$store.getters.setShoppingBag, "调接口");
           load.close();
         })
         .catch((err) => {
@@ -581,10 +602,11 @@ export default {
     goAdvanceOrder() {
       this.loading = true;
       this.bt_buy = false;
+      // this.$router.push({ path: "/advanceOrder" });
       this.timer = setTimeout(() => {
         //跳转的页面写在此处
         this.$router.push({ path: "/advanceOrder" });
-      }, 500);
+      }, 200);
       // clearTimeout(this.timer); // 清除定时器
       // this.timer = null;
     },

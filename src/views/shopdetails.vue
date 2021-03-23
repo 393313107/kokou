@@ -167,7 +167,9 @@ export default {
       color: "",
       i: "1",
       Arindex: 0,
-      img:require('../assets/logo.png')
+      img:require('../assets/logo.png'),
+      total:0,
+      dataList:[]
     };
   },
   computed: {
@@ -316,6 +318,55 @@ export default {
       })
         .then((res) => {
           // 跳转
+          // this.bt();
+          this.getShopList()
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    // 获取列表
+    getShopList() {
+      const load = this.$loading({
+        background: "rgba(255, 255, 255, 0)",
+      });
+      this.$get(this.api.shop_list, {})
+        .then((res) => {
+          this.$nextTick(() => {
+            this.$refs.badgeChange.getCount();
+          });
+          this.dataList = res.data;
+          if (this.dataList.length === 0) {
+            this.good_null = true;
+            this.good_list = false;
+          } else {
+            this.good_list = true;
+            this.good_null = false;
+          }
+          this.total = 0;
+          // for (let i = 0; i < this.dataList.length; i++) {
+          //   if (this.dataList[i].need_lens == "0") {
+          //     this.lensBt = false;
+          //     this.lensBto = true;
+          //   }
+          // }
+          this.dataList.forEach((item) => {
+            // if (item.need_lens == "0") {
+            //   this.lensBt = false;
+            //   this.lensBto = true;
+            // }else{
+            //   this.lensBt = true;
+            //   this.lensBto = false;
+            // }
+            if (item.lens_price == null) {
+              item.lens_price = 0;
+            }
+            this.total += parseInt(item.price) + parseInt(item.lens_price);
+          });
+          this.$store.dispatch("setHeJi", this.total);
+          this.$store.dispatch("setShoppingBag", this.dataList);
+          console.log(this.$store.getters.setShoppingBag,'setShoppingBag')
+          load.close();
           this.bt();
         })
         .catch((err) => {

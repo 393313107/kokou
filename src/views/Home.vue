@@ -69,6 +69,7 @@ export default {
   },
   created() {
     this.isFirstEnter = true;
+    this.getAddDefault() // 获取默认收获地址
     // 只有第一次进入或者刷新页面后才会执行此钩子函数
     // 使用keep-alive后（2+次）进入不会再执行此钩子函数
   },
@@ -95,6 +96,17 @@ export default {
     this.isFirstEnter = false;
   },
   methods: {
+    // 获取默认地址
+    getAddDefault() {
+      this.$get(this.api.addr_default, {})
+        .then((res) => {
+          let msg = res.data;
+          this.$store.dispatch('setAddDefault',msg)
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
     share() {
       var _this = this
       this.$get(this.api.config, {

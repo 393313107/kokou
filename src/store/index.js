@@ -12,7 +12,8 @@ export default new Vuex.Store({
     openid: "",
     wxPay: "", //支付宝链接
     heji: "", //合计
-    setShoppingBag:[] // 购物车数据
+    setShoppingBag:"", // 购物车数据
+    addDefault:"" // 默认收货地址
   },
   //事件(同步操作)--存数据
   mutations: {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     setShoppingBag(state,data) {
       state.setShoppingBag = data;
+    },
+    setAddDefault(state,data) {
+      state.addDefault = data;
     }
   },
   //事件(异步操作)--写请求
@@ -61,7 +65,9 @@ export default new Vuex.Store({
     setShoppingBag({ commit }, data) {
       commit("setShoppingBag", data);
     },
-   
+    setAddDefault({ commit }, data) {
+      commit("setAddDefault", data);
+    }
   },
   // 过滤器/计算属性--取数据
   getters: {
@@ -85,6 +91,9 @@ export default new Vuex.Store({
     },
     setShoppingBag(state) {
       return state.setShoppingBag;
+    },
+    getAddDefault(state) {
+      return state.addDefault
     }
     
   },
