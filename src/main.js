@@ -96,7 +96,7 @@ router.afterEach(() => {
 //   next();
 // };
 // router.beforeEach(beforeEach);
-
+console.log('start')
 const Auth = {
   getCode() {
     // 1 判断有没token 没有需要登录
