@@ -157,13 +157,24 @@ export default {
           timestamp: res.data.timestamp, // 必填，生成签名的时间戳
           nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
           signature: res.data.sign, // 必填，签名
-          jsApiList: ["onMenuShareAppMessage"], // 必填，需要使用的JS接口列表
+          jsApiList: ["onMenuShareAppMessage","onMenuShareTimeline"], // 必填，需要使用的JS接口列表
         });
         wx.ready(function () {
           wx.onMenuShareAppMessage({
             title: "KOKOU 眼镜", // 分享标题
             desc: '商品列表', // 分享描述
-            imgUrl: "http://image.kokou.cn//20210322/PUL9EZ3HK.jpg", // 分享图标
+            imgUrl: "http://image.kokou.cn//20210324/MI87A1HLZ.jpg", // 分享图标
+            success: function () {
+              // 用户确认分享后执行的回调函数
+            },
+            cancel: function () {
+              // 用户取消分享后执行的回调函数
+            },
+          });
+          wx.onMenuShareTimeline({
+            title: "KOKOU 眼镜", // 分享标题
+            desc: '商品列表', // 分享描述
+            imgUrl: "http://image.kokou.cn//20210324/MI87A1HLZ.jpg", // 分享图标
             success: function () {
               // 用户确认分享后执行的回调函数
             },

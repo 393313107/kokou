@@ -95,7 +95,7 @@ export default {
           wx.onMenuShareAppMessage({
             title: "KOKOU 眼镜", // 分享标题
             desc: '我的账户', // 分享描述
-            imgUrl: "http://image.kokou.cn//20210322/PUL9EZ3HK.jpg", // 分享图标
+            imgUrl: "http://image.kokou.cn//20210324/MI87A1HLZ.jpg", // 分享图标
             success: function () {
               // 用户确认分享后执行的回调函数
             },
